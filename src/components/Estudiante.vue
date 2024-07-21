@@ -4,7 +4,7 @@
         <div class="estudiante-container">
 
 
-            <form class="form" >
+            <form class="form">
 
                 <div>
                     <label for="cedula">Cédula:</label>
@@ -31,8 +31,8 @@
                     </select>
                 </div>
                 <button type="submit">Guardar</button>
-                <button type="button" @click="">Actualizar</button>
-                <button type="button" @click="">Eliminar</button>
+                <button type="button" @click="consultar">Consultar</button>
+                <button type="button" @click="actualizar">Actualizar</button>
             </form>
             <div v-if="mensaje">
                 <p>{{ mensaje }}</p>
@@ -40,40 +40,59 @@
         </div>
     </div>
 </template>
-  
-  <script>
-  export default {
+
+<script>
+import { obtenerPorCedulaAxiosFachada, actualizarFachada } from '../clients/clienteEstudiante.js'
+
+export default {
     data() {
-      return {
-        estudiante: {
-          cedula: '',
-          nombre: '',
-          apellido: '',
-          fechaNacimiento: '',
-          genero: ''
-        },
-        mensaje: ''
-      };
+        return {
+            estudiante: {
+                cedula: null,
+                nombre: '',
+                apellido: '',
+                fechaNacimiento: '',
+                genero: ''
+            },
+            mensaje: ''
+        };
     },
     methods: {
-      handleSubmit() {
-        // Lógica para guardar el estudiante
-        this.mensaje = 'Estudiante guardado con éxito';
-      },
-      handleUpdate() {
-        // Lógica para actualizar el estudiante
-        this.mensaje = 'Estudiante actualizado con éxito';
-      },
-      handleDelete() {
-        // Lógica para eliminar el estudiante
-        this.mensaje = 'Estudiante eliminado con éxito';
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
+        async consultar() {
+            // Lógica para guardar el estudiante
+            console.log(this.estudiante.cedula);
+            const data = await obtenerPorCedulaAxiosFachada(this.estudiante.cedula);
+            console.log(data);
+            console.log(data.nombre);
+            console.log(data.apellido);
+            this.mensaje = 'Estudiante guardado con éxito';
+        },
+        async actualizar() {
+            const estudianteBody =
+            {
 
+                nombre: this.estudiante.nombre,
+                apellido: this.estudiante.apellido,
+                fechaNacimiento: this.estudiante.fechaNacimiento,
+                genero: this.estudiante.genero,
+            };
+            const data = await actualizarFachada(this.estudiante.cedula,estudianteBody);
+            console.log(data);
+
+        },
+        handleUpdate() {
+            // Lógica para actualizar el estudiante
+            this.mensaje = 'Estudiante actualizado con éxito';
+        },
+        handleDelete() {
+            // Lógica para eliminar el estudiante
+            this.mensaje = 'Estudiante eliminado con éxito';
+        }
+    }
+};
+</script>
+
+<style scoped>
 .estudiante-container {
 
     max-width: 600px;
@@ -85,19 +104,19 @@
 }
 
 
-h1{
+h1 {
     text-align: center;
     padding: 30px;
 }
 
-p:before{
+p:before {
     content: attr(type);
     display: block;
     margin: 2px 1px;
     color: #000;
 }
 
-input{
+input {
     width: 300px;
     border: none;
     border-bottom: 2px solid #494848;
@@ -109,20 +128,22 @@ input:focus {
     outline: none;
     border-bottom: 2px solid #7c7171;
 }
-.genero{
+
+.genero {
     width: 300px;
     background: none;
     margin-top: 25px;
 
 }
 
-.container{
+.container {
     background: #e0e5ff;
     border-radius: 5px;
     padding: 25px 35px;
     box-shadow: 0 0 10px 0px #c2cbff;
 }
-.form{
+
+.form {
     width: 350px;
     height: 380px;
     background: #e0e5ff;
@@ -132,15 +153,15 @@ input:focus {
 
 }
 
-body{
+body {
     background: #1b1f36;
 }
 
 
-button{
+button {
     padding: 5px 20px;
     background: #c2cbff;
-    color: #35394d; 
+    color: #35394d;
     border-radius: 5px;
     cursor: pointer;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -150,5 +171,4 @@ button{
     margin-top: 20px;
     margin-right: 10px;
 }
-  </style>
-  
+</style>
