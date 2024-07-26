@@ -3,10 +3,11 @@ import EstudianteActualizar from '../pages/EstudianteActualizar.vue';
 import EstudianteEliminar from '../pages/EstudianteEliminar.vue';
 import EstudianteInsertar from '../pages/EstudianteInsertar.vue';
 import BienvenidaPage from '../pages/BienvenidaPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
 
 const routes = [
     {
-        path: '/EstudianteActualizar',
+        path: '/EstudianteActualizar/:cedula',
         component: EstudianteActualizar
     },
     {
@@ -18,8 +19,12 @@ const routes = [
         component: EstudianteInsertar
     },
     {
-        path: '/BienvenidaPage',
+        path: '/',
         component: BienvenidaPage
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: NotFoundPage
     },
 ]
 

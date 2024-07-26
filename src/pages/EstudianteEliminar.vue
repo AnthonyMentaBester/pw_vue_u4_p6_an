@@ -1,20 +1,15 @@
 <template>
-    <h1>Borrar estudiante</h1>
-    <Estudiante />
-    <Boton />
-    
+    <h1>Borrar Estudiante</h1>
+    <Estudiante /> 
 </template>
 
 <script>
-import Formulario from '../components/Formulario.vue'
-import Boton from '../components/Boton.vue'
 import Estudiante from '@/components/Estudiante.vue';
 
 export default {
 
     components: {
         Estudiante,
-        Boton
     }
 }
 

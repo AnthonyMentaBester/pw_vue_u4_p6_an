@@ -3,7 +3,7 @@ import axios from "axios"
 //METODOS DE CONSUMO DEL API 
 const obtenerPorCedula = async(cedula) =>{
 
-    const data = await fetch(`http://localhost:8080/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.json());
+    const data = await fetch(`http://localhost:8082/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.json());
     console.log(data);
     return data;
 
@@ -12,7 +12,7 @@ const obtenerPorCedula = async(cedula) =>{
 }
 
 const obtenerPorCedulaAxios = async(cedula) =>{
-    const data = axios.get(`http://localhost:8080/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.data)
+    const data = axios.get(`http://localhost:8082/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.data);
     console.log(data);
     return data;
 

@@ -65,6 +65,8 @@ export default {
             console.log(data);
             console.log(data.nombre);
             console.log(data.apellido);
+            this.estudiante.cedula = data.cedula;
+            this.estudiante.nombre = data.nombre;
             this.mensaje = 'Estudiante guardado con éxito';
         },
         async actualizar() {
@@ -87,6 +89,14 @@ export default {
         handleDelete() {
             // Lógica para eliminar el estudiante
             this.mensaje = 'Estudiante eliminado con éxito';
+        }
+    },
+    created(){
+        console.log(this.$route)
+        console.log(this.$route.params.cedula)
+        if(this.$route.params.cedula !== 'vacio'){
+            this.estudiante.cedula = this.$route.params.cedula;
+            this.consultar();
         }
     }
 };
