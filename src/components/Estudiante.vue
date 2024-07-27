@@ -97,6 +97,7 @@ export default {
         if(this.$route.params.cedula !== 'vacio'){
             this.estudiante.cedula = this.$route.params.cedula;
             this.consultar();
+            
         }
     }
 };

@@ -2,7 +2,7 @@
   <div>
     <router-link to="/">Bienvenida</router-link>
     <router-link to="/EstudianteActualizar/vacio">Estudiante Actualizar</router-link>
-    <router-link to="/EstudianteInsertar">Estudiante Crear</router-link>
+    <router-link :to="{name: 'EstudianteInsertar', params: {cedula: '17141'}, query: {nombre:  'anthonn'}}">Estudiante Crear</router-link>
     <router-link to="/EstudianteEliminar">Estudiante Borrar</router-link>
   </div>
 </template>

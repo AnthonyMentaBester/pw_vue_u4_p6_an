@@ -19,26 +19,26 @@ const obtenerPorCedulaAxios = async(cedula) =>{
 }
 
 const guardar = async(estudianteBody)=>{
-    const data = axios.post(`http://localhost:8080/API/v1.0/Matricula/estudiantes`,estudianteBody).then(r=>r.data);
+    const data = axios.post(`http://localhost:8082/API/v1.0/Matricula/estudiantes`,estudianteBody).then(r=>r.data);
     console.log(data);
     return data;
 }
 
 const actualizar = async(cedula,estudianteBody)=>{
-    const data = axios.put(`http://localhost:8080/API/v1.0/Matricula/estudiantes/${cedula}`,estudianteBody).then(r=>r.data);
+    const data = axios.put(`http://localhost:8082/API/v1.0/Matricula/estudiantes/${cedula}`,estudianteBody).then(r=>r.data);
     console.log(data);
     return data;
 }
 
 
 const eliminar = async(cedula)=>{
-    const data = axios.delete(`http://localhost:8080/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.data);
+    const data = axios.delete(`http://localhost:8082/API/v1.0/Matricula/estudiantes/${cedula}`).then(r=>r.data);
     console.log(data);
     return data;
 }
 
 const actualizarParcial = async(estudianteBody,cedula)=>{
-    const data = axios.patch(`http://localhost:8080/API/v1.0/Matricula/estudiantes/${cedula}`,estudianteBody).then(r=>r.data);
+    const data = axios.patch(`http://localhost:8082/API/v1.0/Matricula/estudiantes/${cedula}`,estudianteBody).then(r=>r.data);
     console.log(data);
     return data;
 }
