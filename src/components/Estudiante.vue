@@ -2,10 +2,7 @@
     <div class="container">
         <h1>Estudiantes</h1>
         <div class="estudiante-container">
-
-
             <form class="form">
-
                 <div>
                     <label for="cedula">Cédula:</label>
                     <input type="text" v-model="estudiante.cedula" id="cedula" required />
@@ -33,6 +30,7 @@
                 <button type="submit">Guardar</button>
                 <button type="button" @click="consultar">Consultar</button>
                 <button type="button" @click="actualizar">Actualizar</button>
+                <button type="button" @click="eliminar">Eliminar</button>
             </form>
             <div v-if="mensaje">
                 <p>{{ mensaje }}</p>
@@ -41,8 +39,9 @@
     </div>
 </template>
 
+
 <script>
-import { obtenerPorCedulaAxiosFachada, actualizarFachada } from '../clients/clienteEstudiante.js'
+import { obtenerPorCedulaAxiosFachada, actualizarFachada, eliminarFachada } from '../clients/clienteEstudiante.js'
 
 export default {
     data() {
@@ -59,37 +58,38 @@ export default {
     },
     methods: {
         async consultar() {
-            // Lógica para guardar el estudiante
-            console.log(this.estudiante.cedula);
+            // Lógica para consultar el estudiante
             const data = await obtenerPorCedulaAxiosFachada(this.estudiante.cedula);
-            console.log(data);
-            console.log(data.nombre);
-            console.log(data.apellido);
-            this.mensaje = 'Estudiante guardado con éxito';
+            this.estudiante.nombre = data.nombre;
+            this.estudiante.apellido = data.apellido;
+            this.estudiante.fechaNacimiento = data.fechaNacimiento;
+            this.estudiante.genero = data.genero;
+            this.mensaje = 'Estudiante consultado con éxito';
         },
         async actualizar() {
-            const estudianteBody =
-            {
-
+            const estudianteBody = {
                 nombre: this.estudiante.nombre,
                 apellido: this.estudiante.apellido,
                 fechaNacimiento: this.estudiante.fechaNacimiento,
                 genero: this.estudiante.genero,
             };
-            const data = await actualizarFachada(this.estudiante.cedula,estudianteBody);
-            console.log(data);
-
-        },
-        handleUpdate() {
-            // Lógica para actualizar el estudiante
+            await actualizarFachada(this.estudiante.cedula, estudianteBody);
             this.mensaje = 'Estudiante actualizado con éxito';
         },
-        handleDelete() {
-            // Lógica para eliminar el estudiante
+        async eliminar() {
+            await eliminarFachada(this.estudiante.cedula);
             this.mensaje = 'Estudiante eliminado con éxito';
+            this.estudiante = {
+                cedula: null,
+                nombre: '',
+                apellido: '',
+                fechaNacimiento: '',
+                genero: ''
+            };
         }
     }
 };
+
 </script>
 
 <style scoped>
